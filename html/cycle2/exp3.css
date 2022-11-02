@@ -1,0 +1,39 @@
+body{
+    background-color: rgb(217, 217, 217);
+
+}
+#head, dt{
+    background-color: rgb(164, 168, 170);
+    color: black;
+    border-radius: 10%;
+}
+#photo{
+    border-radius: 5%;
+    margin-bottom: 5%;
+}
+.deps{
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 2%;
+}
+.subs{
+    color: midnightblue;
+    font-size: 18px;
+}
+
+a{
+    text-decoration: none;
+    font-size: larger;
+}
+
+dt{
+    font-size: 24px;
+    font-weight: bold;
+}
+dd{
+    word-spacing: 3px;
+    font-size: 18px;
+    color: tomato;
+}
+
