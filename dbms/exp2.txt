@@ -1,0 +1,6 @@
+
+create table PRODUCT_MASTERS(PRODUCTNO varchar(6) primary key check(PRODUCTNO like 'p%'), DESCRIPTION varchar(15) not null, PROFITPERCENT decimal(4, 2) not null, UNITMEASURE varchar(10) not null, QTYONHAND int(8) not null, REORDERLVL int(8) not null, SELLPRICE decimal(8,2) not null check(SELLPRICE != 0), COSTPRICE decimal(8, 2) not null check(COSTPRICE != 0));
+
+create table CLIENT_MASTERS(CLIENTNO varchar(6) primary key check(CLIENTNO like 'C%'),NAME varchar(20) not null,ADDRESS1 varchar(30), ADDRESS2 varchar(30),CITY varchar(15),PINCODE integer(8),STATE varchar(15),BALDUE decimal(10,2));
+
+create table SALESMAN_MASTERS(SALESMANNO varchar(6) primary key check(SALESMANNO like 'S%'),SALESMANNAME varchar(20) not null,ADDRESS1 varchar(30) not null,ADDRESS2 varchar(30),CITY varchar(15),PINCODE integer(8),STATE varchar(15));
