@@ -4,7 +4,7 @@
 char infix[30], postfix[30], symbols[30];
 int poTop = -1, syTop = -1, len;
 
-int push(char *, char, int);
+void push(char *, char, int*);
 char peek(char *, int);
 char pop(char *, int *);
 
@@ -15,56 +15,53 @@ void main(){
     scanf("%s", infix);
     len = strlen(infix);
     infix[len] = ')';
-    syTop = push(symbols, '(', syTop);
+    push(symbols, '(', &syTop);
     for(int i=0;i <= len;i++){
         char ch = infix[i];
         int chNow = check(ch);
         if(chNow == 2){
-            syTop = push(symbols, ch, syTop);
+            push(symbols, ch, &syTop);
         }
         else if(chNow == 0){
-            poTop = push(postfix, ch, poTop);
+            push(postfix, ch, &poTop);
         }
         else if(chNow == 1){
             char c = pop(symbols, &syTop);
             while(c != '('){
-                poTop = push(postfix, c, poTop);
-                c = pop(symbols, &syTop);
-                
+                push(postfix, c, &poTop);
+                c = pop(symbols, &syTop);   
             }
         }
         else{
             char t = peek(symbols, syTop);
             if(check(t) >= chNow){
-                printf("checkT = %d\n", check(t));
                 while(check(t) >= chNow){
                     t = pop(symbols, &syTop);
-                    poTop = push(postfix, t, poTop);
+                    push(postfix, t, &poTop);
                     t = peek(symbols, syTop);
                     if(t=='('){
                         break;
                     }
                 }
-                syTop = push(symbols, ch, syTop);
+                push(symbols, ch, &syTop);
             }
             else{
-                syTop = push(symbols, ch, syTop);
+                push(symbols, ch, &syTop);
             }
         }
 
     } 
-    printf("The postfix  = \n%s\n", postfix);   
+    printf("The postfix   \n%s\n", postfix);   
 }
 
-int push(char *str, char c, int top){
-
-    if(top > len){
+void push(char *str, char c, int *top){
+    if(*top > len){
         printf("Stack is full\n");
-        return -1;
     }
-    top++;
-    str[top] = c;
-    return top;
+    else{
+        *top = *top + 1;
+        str[*top] = c;
+    }
 }
 
 int check(char c){
