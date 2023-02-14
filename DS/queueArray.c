@@ -1,10 +1,12 @@
 #include<stdio.h>
 #define m 30
+
 // Implement Queue using array.
+
 int queue[m],front=-1, rear = -1;
 
-void push();
 void pop();
+void push();
 void peek();
 void delete();
 void printQueue();
@@ -43,7 +45,6 @@ void main(){
 void push(){
     if(rear == m-1){
         printf("Overflow\n");
-
     }
     else{
         int n;
@@ -61,7 +62,7 @@ void push(){
 }
 
 void pop(){
-    if(front >= rear){
+    if(front > rear){
         printf("Queue is Empty like your head\n");
     }
     else{
@@ -70,7 +71,7 @@ void pop(){
     }
 }
 void peek(){
-    if(front == -1){
+    if(rear == -1){
         printf("\nQueue is Empty\n");
     }
     else{
@@ -87,7 +88,7 @@ void delete(){
 }
 
 void printQueue(){
-    if(rear == -1){
+    if(front > rear){
         printf("\nQueue is empty\n");
     }
     else{
