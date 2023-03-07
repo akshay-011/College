@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <title>Bio Data Form</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <center><h1>BioData</h1></center>
+    <div class="biodata">
+      <form method="post" action="Exp6.php">
+        <h3>
+          Name :
+          <input type="text" name="name" />
+        </h3>
+
+        <h3>
+          DoB :
+          <input type="date" name="dob" />
+        </h3>
+
+        <h3>
+          Adress:
+          <textarea name="address" cols="20" rows="5"></textarea>
+        </h3>
+
+        <h3>
+          Gender:
+          <input
+            type="radio"
+            name="gender"
+            placeholder="Male"
+            value="male"
+          />Male
+          <input
+            type="radio"
+            name="gender"
+            placeholder="Female"
+            value="female"
+          />Female
+        </h3>
+
+        <h3>
+          Qualification:
+          <input type="checkbox" value="sslc" name="quali[]" checked />SSLC
+          <input type="checkbox" name="quali[]" value="plustwo" />Plus Two
+          <input type="checkbox" name="quali[]" value="iti" />ITI
+        </h3>
+
+        <h3>
+          District:
+          <select name="district">
+            <option disabled selected>Select District</option>
+            <option value="ekm">Ernakulam</option>
+            <option value="malapuram">Malapura</option>
+            <option value="kochikode">Kozhikode</option>
+          </select>
+        </h3>
+
+        <h3><input type="submit" /> <input type="reset" /></h3>
+      </form>
+    </div>
+  </body>
+</html>
