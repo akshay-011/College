@@ -1,0 +1,84 @@
+###############################################################################
+TRIGEGR
+
+DELIMITER $$
+CREATE TRIGGER update_sal
+AFTER INSERT
+ON emp FOR EACH ROW
+BEGIN
+ UPDATE sal
+ SET totalSal=totalSal + NEW.empSal,
+ totalEmp=totalEmp + 1
+ WHERE empName=NEW.empName;
+END $$
+DELIMITER ;
+
+###################################################################################
+
+##################################################################################
+CURSOR 
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS procDiploma$$
+CREATE PROCEDURE procDiploma()
+ BEGIN
+
+ DECLARE intStudId INT(2);
+ DECLARE varStudName VARCHAR(20);
+ DECLARE done INT DEFAULT FALSE;
+ 
+ DECLARE c1 CURSOR FOR
+ SELECT studId, studName
+ FROM students
+ WHERE programme='Diploma';
+ DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+ OPEN c1;
+ REPEAT
+ FETCH c1 INTO intStudId, varStudName;
+ IF NOT done THEN
+ INSERT INTO diploma
+ SET studId=intStudId, studName=varStudName;
+ END IF;
+ UNTIL done
+ END REPEAT;
+ CLOSE c1;
+ END $$
+DELIMITER ;
+####################################################################################
+
+#######################################################################################
+
+FACTORIAL FUNCTION
+set global log_bin_trust_function_creators = 1;
+
+DELIMITER $$
+CREATE FUNCTION factorial(n INT)
+RETURNS INT
+BEGIN
+    DECLARE result INT DEFAULT 1;
+    WHILE n > 0 DO
+        SET result = result * n;
+        SET n = n - 1;
+    END WHILE;
+    RETURN result;
+END $$
+DELIMITER ;
+
+
+############################################################################################
+
+############################################################################################
+
+PROCEDURE 
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS procSum$$
+CREATE PROCEDURE procSum(IN a INT, IN b INT, OUT sum INT)
+BEGIN
+ SET sum = a + b;
+END $$
+DELIMITER ;
+
+################################################################################### 
+
+
