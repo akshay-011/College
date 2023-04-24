@@ -1,43 +1,38 @@
 import javax.swing.*;
 import java.awt.event.*;
+import java.awt.FlowLayout;
 
-public class Exp15 implements ActionListener{
-    JButton cancel = new JButton("CANCEL");
-    JButton ok = new JButton("OK");
-    JLabel t = new JLabel();
-    public Exp15(){
+public class exp15 implements ActionListener {
+    JButton button1, button2;
+    JLabel label=new JLabel("");
 
-        JFrame f = new JFrame("Exp-15");
-
-        f.setSize(700,800);
-        f.setLayout(null);
-        f.setVisible(true);
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        t.setBounds(330, 150, 200, 100);
-        f.add(t);
-
-        //Button Ok
-        ok.setBounds(280, 300, 100, 60);
-        f.add(ok);
-        
-        // Cancel
-        cancel.setBounds(400, 300, 100, 60);
-        f.add(cancel);
-        
-        ok.addActionListener(this);
-        cancel.addActionListener(this);
-
+    public exp15() {
+        JFrame frame = new JFrame("Button Click Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        button1 = new JButton("OK");
+        button1.addActionListener(this);
+        button2 = new JButton("Cancel");
+        button2.addActionListener(this);
+        frame.setLayout(new FlowLayout());
+        frame.setSize(1000, 1000);
+        frame.setVisible(true);
+        frame.add(button1);
+        frame.add(button2);
+        frame.add(label);
     }
-    public static void main(String args[]) {
-        new Exp15();
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == button1) {
+            System.out.println("OK clicked...");
+            label.setText(" OK Clicked...");
+        } else if (e.getSource() == button2) {
+            System.out.println("Cancel clicked...");
+            label.setText(" Cancel Clicked");
+        }
     }
-    public void actionPerformed(ActionEvent e){
-        if(e.getSource() == ok){
-            t.setText("Ok clicked..");
-        }
-        else if(e.getSource() == cancel){
-            t.setText("Cancel clicked..");
-        }
+
+    public static void main(String[] args) {
+        new exp15();
+    }
 }
-}
+
