@@ -17,14 +17,13 @@ void inorder(struct node *);
 
 
 void main(){
-    int op;
+    int op, val;
     do{
         printf("\n[1] Insert\n[2]display BST\n[-1]to exit\n");
         printf("\nEnter option: ");
         scanf("%d", &op);
         switch (op){
         case 1:
-            int val;
             printf("Enter value : ");
             scanf("%d", &val);
             root = insertNode(root, val);
