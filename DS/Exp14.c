@@ -1,105 +1,96 @@
 #include <stdio.h>
-#include <stdlib.h>
 
+#define MAX_NODES 100
 
-struct node {
-    int value;
-    struct node* next;
-};
+int graph[MAX_NODES][MAX_NODES]; 
 
+int visited[MAX_NODES];
 
-struct graph {
-    int numVertices;
-    struct node** adjLists;
-};
-
-struct node *createnode(int );
-struct graph *creategraph(int);
-void addEdge(struct graph *, int , int );
-void DFS(struct graph* , int , int* );
-void BFS(struct graph *, int , int *);
-
+void bfs(int, int);
+void dfs(int, int);
 
 
 void main() {
-    struct graph* graph = creategraph(5);
-    addEdge(graph, 0, 1);
-    addEdge(graph, 0, 2);
-    addEdge(graph, 1, 2);
-    addEdge(graph, 2, 0);
-    addEdge(graph, 2, 3);
-    addEdge(graph, 3, 3);
+    int nodes, edges, i, j, x, y;
 
-    int visited[5] = {0};
-    printf("DFS traversal: ");
-    DFS(graph, 0, visited);
+    printf("Enter number of nodes: ");
+    scanf("%d", &nodes);
 
-    printf("\nBFS traversal: ");
-    for (int i = 0; i < 5; i++) {
+    printf("Enter number of edges: ");
+    scanf("%d", &edges);
+   
+    for (i = 0; i < nodes; i++) {
+        for (j = 0; j < nodes; j++) {
+            graph[i][j] = 0;
+        }
+    }
+
+  
+    for (i = 0; i < edges; i++) {
+        printf("Enter edge %d: ", i+1);
+        scanf("%d %d", &x, &y);
+
+        graph[x][y] = 1;
+        graph[y][x] = 1; 
+    }
+
+    
+    printf("Adjacency matrix:\n");
+    for (i = 0; i < nodes; i++) {
+        for (j = 0; j < nodes; j++) {
+            printf("%d ", graph[i][j]);
+        }
+        printf("\n");
+    }
+    printf("BFS of graph \n");
+    bfs(0, nodes);
+    
+    for (i = 0; i < nodes; i++) {
         visited[i] = 0;
     }
-    BFS(graph, 0, visited);
-
-}
-struct node *createnode(int value)
-{
-    struct node* newnode = malloc(sizeof(struct node));
-    newnode->value = value;
-    newnode->next = NULL;
-    return newnode;
-}
-
-struct graph* creategraph(int numVertices) {
-    struct graph* graph = malloc(sizeof(struct graph));
-    graph->numVertices = numVertices;
-    graph->adjLists = malloc(numVertices * sizeof(struct node*));
-    for (int i = 0; i < numVertices; i++) {
-        graph->adjLists[i] = NULL;
-    }
-    return graph;
-}
-
-void addEdge(struct graph* graph, int src, int dest) {
-
-    struct node* newnode = createnode(dest);
-    newnode->next = graph->adjLists[src];
-    graph->adjLists[src] = newnode;
+    
+    printf("\nDFS of graph \n");
+    dfs(0, nodes);
+    
+    
 
 }
 
 
-void DFS(struct graph* graph, int vertex, int* visited) {
-    visited[vertex] = 1;
-    printf("%d ", vertex);
-    struct node* adjList = graph->adjLists[vertex];
-    while (adjList != NULL) {
-        int connectedVertex = adjList->value;
-        if (visited[connectedVertex] == 0) {
-            DFS(graph, connectedVertex, visited);
-        }
-        adjList = adjList->next;
-    }
-}
+void bfs(int start, int nodes) {
+    int queue[MAX_NODES], front = -1, rear = -1;
+    int i, curr;
 
-void BFS(struct graph* graph, int vertex, int* visited) {
-    int queue[graph->numVertices];
-    int front = 0, rear = 0;
-    visited[vertex] = 1;
-    queue[rear] = vertex;
-    rear++;
-    while (front < rear) {
-        int currentVertex = queue[front];
-        printf("%d ", currentVertex);
-        front++;
-        struct node* adjList = graph->adjLists[currentVertex];
-        while (adjList != NULL) {
-            int connectedVertex = adjList->value;
-            if (visited[connectedVertex] == 0) {
-                visited[connectedVertex] = 1;
-                queue[rear] = connectedVertex;
-                rear++;
+    queue[++rear] = start;
+
+    visited[start] = 1;
+
+    while (front != rear) {
+        curr = queue[++front];
+
+        printf("%d ", curr);
+
+        for (i = 0; i < nodes; i++) {
+            if (graph[curr][i] && !visited[i]) {
+                queue[++rear] = i;
+                visited[i] = 1;
             }
-            adjList = adjList->next;
         }
     }
 }
+
+
+void dfs(int curr, int nodes) {
+    int i;
+
+    printf("%d ", curr);
+
+    visited[curr] = 1;
+
+    for (i = 0; i < nodes; i++) {
+        if (graph[curr][i] && !visited[i]) {
+            dfs(i, nodes);
+        }
+    }
+}
+
