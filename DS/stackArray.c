@@ -1,87 +1,72 @@
 #include<stdio.h>
-#include<stdlib.h>
 
-int stack[20], t= -1, m;
+int top =-1 , stack[100], max;
 
-void push();
+void push(int);
+void pop();
 void peek();
-void del();
-void printStack();
-void menu();
+void display();
 
 void main(){
-  printf("Enter limit of stack: ");
-  scanf("%d", &m);
-  menu();
+    printf("Enter max : ");
+    scanf("%d", &max);
+    int op, val;
+    do{
+        printf("1)push\n2)pop\n3)peek\n4)display\n-1)exit\n");
+        scanf("%d", &op);
+        switch (op){
+        case 1 :
+            printf("Enter data : ");
+            scanf("%d", &val);
+            push(val);
+            break;
+        case 2 :
+            pop();
+            break;
+        case 3 :
+            peek();
+            break;
+        case 4 :
+            display();
+            break;
+        }
+
+    } while (op != -1);
+    
 }
-void push(){
-  if(t==m-1){
-    printf("stack is full\n");
-    menu();
-  }
-  else{
-    printf("\nEnter stack: \n");
-    for(int i=0;i<m;i++){
-        t++;
-        scanf("%d", &stack[t]);
+
+void push(int data){
+    if(top == max-1)
+        printf("Stack overflow\n");
+    else{
+        top++;
+        stack[top] = data;
     }
-    menu();
-  }
+}
+void pop(){
+    if(top == -1)
+        printf("Stack underflow\n");
+    else{
+        printf("Value deleted : %d\n", stack[top]);
+        top--;
+    }
 }
 void peek(){
-  if(t == -1){
-    printf("\nStack empty please add items\n");
-    menu();
-  }
-  else{
-    printf("\nPeek element is %d\n", stack[t]);
-    t--; 
-    menu();   
-  }
-}
-void del(){
-  if(t == -1){
-    printf("\nStack empty please add items\n");
-    menu();
-  }
-  else{
-    t=-1;
-    menu();
-  }
-}
-void printStack(){
-  if(t==-1){
-    printf("\nStack is empty please add items\n");
-    menu();
-  }
-  else{
-    printf("The Stack is\n");
-    for(int i=0;i<=t;i++){
-      printf("%d\t", stack[i]);
+    if(top == -1)
+        printf("Stack underflow\n");
+    else{
+        printf("Peek Value : %d\n", stack[top]);
     }
-    menu();
-  }
 }
-void menu(){
-  int op;
-  printf("\n\nMENU\n1)push\n2)peek\n3)print\n4)delete\n");
-  printf("\nEnter Option: ");
-  scanf("%d", &op);
-  switch(op){
-    case 1:
-      push();
-      break;
-    case 2:
-        peek();
-        break;
-    case 3:
-        printStack();
-        break;
-    case 4:
-        del();
-        break;
-    default:
-        printf("Error\n");
-        exit(0);
-  }
+
+void display(){
+    if(top == -1)
+        printf("Stack underflow\n");
+    else{
+        printf("Stack is \n");
+        for(int i = 0 ; i <= top ; i++){
+            printf("%d   ", stack[i]);
+        }
+        printf("\n");
+    }
 }
